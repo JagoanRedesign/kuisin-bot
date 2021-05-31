@@ -1,12 +1,30 @@
 import telebot
+from controller.play_controller import PlayController
 
-# Create bot
-bot = telebot.TeleBot('1895994173:AAEOIlOIpYt-8sx5SVu_-cp0smhkVfRO668')
+class Main:
+  def __init__(self):
+    super().__init__()
+    
+  def main(self):
+    # Create bot
+    bot = telebot.TeleBot('1895994173:AAEOIlOIpYt-8sx5SVu_-cp0smhkVfRO668')
+ 
+    # Start message
+    @bot.message_handler(commands=['start'])
+    def display_welcome_msg(message):
+      bot.reply_to(
+        message, 'Hai, perkenalkan namaku KuisIn Bot. Aku adalah bot untuk bermain kuis. Ketik /play untuk bermain'
+      )
 
-@bot.message_handler(commands=['start'])
-def display_welcome_msg(message):
-    bot.reply_to(
-        message, 'Hai, perkenalkan namaku KuisIn Bot. Aku adalah bot untuk bermain kuis'
-    )
+    # Controllers
+    play_controller = PlayController()
 
-bot.polling()
+    # Play
+    @bot.message_handler(commands=['play'])
+    def play(message):
+      play_controller.play()
+
+    bot.polling()
+
+main = Main()
+main.main()
