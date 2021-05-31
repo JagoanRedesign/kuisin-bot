@@ -21,7 +21,7 @@ class Dao:
 
   def get_question(self, id):
     try:
-      query = "SELECT * FROM question WHERE id=" + str(id)
+      query = "SELECT question FROM question WHERE id=" + str(id)
       self.cursor.execute(query)
 
       result = self.cursor.fetchall()

@@ -21,10 +21,10 @@ class PlayController:
 
     return id
 
-  def play(self):
+  def get_question(self):
     questions_len = self.dao.get_questions_length()
 
     # Random question id
     quest_id = self.random_quest_id(questions_len)
 
-    self.dao.get_question(quest_id)
+    return self.dao.get_question(quest_id)

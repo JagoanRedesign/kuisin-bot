@@ -2,12 +2,14 @@ import telebot
 from controller.play_controller import PlayController
 
 class Main:
+  bot_token = '1895994173:AAEOIlOIpYt-8sx5SVu_-cp0smhkVfRO668'
+
   def __init__(self):
     super().__init__()
     
   def main(self):
     # Create bot
-    bot = telebot.TeleBot('1895994173:AAEOIlOIpYt-8sx5SVu_-cp0smhkVfRO668')
+    bot = telebot.TeleBot(self.bot_token)
  
     # Start message
     @bot.message_handler(commands=['start'])
@@ -22,7 +24,10 @@ class Main:
     # Play
     @bot.message_handler(commands=['play'])
     def play(message):
-      play_controller.play()
+      chat_id = message.chat.id
+      question = play_controller.get_question()
+      
+      bot.send_message(chat_id, question)
 
     bot.polling()
 
