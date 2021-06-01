@@ -10,23 +10,25 @@ class Main:
   def main(self):
     # Create bot
     bot = telebot.TeleBot(self.bot_token)
+    
+    # Controllers
+    play_controller = PlayController()
  
+    # Message Handlers
     # Start message
     @bot.message_handler(commands=['start'])
     def display_welcome_msg(message):
       bot.reply_to(
-        message, 'Hai, perkenalkan namaku KuisIn Bot. Aku adalah bot untuk bermain kuis. Ketik /play untuk bermain'
+        message, 
+        'Hai, perkenalkan namaku KuisIn Bot. Aku adalah bot untuk bermain kuis pengetahuan umum. Ketik /play untuk bermain'
       )
-
-    # Controllers
-    play_controller = PlayController()
 
     # Play
     @bot.message_handler(commands=['play'])
     def play(message):
       chat_id = message.chat.id
       question = play_controller.get_question()
-      
+
       bot.send_message(chat_id, question)
 
     bot.polling()

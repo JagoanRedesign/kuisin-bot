@@ -1,5 +1,5 @@
 import random
-from model.database.dao import Dao
+from database.dao import Dao
 
 class PlayController:
   dao = Dao()
