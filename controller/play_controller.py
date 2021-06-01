@@ -35,3 +35,6 @@ class PlayController:
 
   def clear_quest_id_list(self):
     self.quest_id_list.clear()
+
+  def get_correct_answer(self, quest_id):
+    return self.dao.get_correct_answer(quest_id)

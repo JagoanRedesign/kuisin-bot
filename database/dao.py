@@ -1,6 +1,7 @@
 import mysql.connector
 from database.db_config import DbConfig
 from model.question import Question
+from model.answer import Answer
 
 class Dao:
   db = DbConfig().get_db()
@@ -22,18 +23,35 @@ class Dao:
 
   def get_question(self, id):
     try:
-      query = "SELECT * FROM question WHERE id=" + str(id)
-      self.cursor.execute(query)
+      self.cursor.execute("SELECT * FROM question WHERE id=" + str(id))
 
-      result = self.cursor.fetchall()
+      result = self.cursor.fetchone()
 
-      for item in result:
-        question = Question(
-          item[0],
-          item[1],
-          item[2]
+      question = Question(
+          result[0],
+          result[1],
+          result[2]
         )
-        
-        return question.get_question()
+
+      return question
+    except Exception as e:
+      print(e)
+
+  def get_correct_answer(self, quest_id):
+    try:
+      # Get answer id
+      self.cursor.execute("SELECT answer FROM correct_answer WHERE question=" + str(quest_id))
+      result_id = self.cursor.fetchone()
+
+      # Get answer
+      self.cursor.execute("SELECT * FROM answer WHERE id=" + str(result_id[0]))
+      result_answer = self.cursor.fetchone()
+
+      answer = Answer(
+        result_answer[0],
+        result_answer[1]
+      )
+
+      return answer
     except Exception as e:
       print(e)
