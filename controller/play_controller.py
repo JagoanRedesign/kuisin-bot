@@ -32,3 +32,6 @@ class PlayController:
     quest_id = self.random_quest_id(questions_len)
 
     return self.dao.get_question(quest_id)
+
+  def clear_quest_id_list(self):
+    self.quest_id_list.clear()

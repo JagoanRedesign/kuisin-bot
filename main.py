@@ -1,4 +1,5 @@
 import telebot
+import time
 from controller.play_controller import PlayController
 
 class Main:
@@ -27,9 +28,32 @@ class Main:
     @bot.message_handler(commands=['play'])
     def play(message):
       chat_id = message.chat.id
-      question = play_controller.get_question()
+      total_question = 3
 
-      bot.send_message(chat_id, question)
+      for i in range(0, total_question+1):
+        if i > 0:
+          t = 5
+
+          # Set timer
+          while t:
+            time.sleep(1)
+            t -= 1
+
+          if i == total_question:
+            bot.send_message(
+              chat_id, "Yah, waktunya sudah habis"
+            )
+            play_controller.clear_quest_id_list()
+
+            return
+
+          bot.send_message(
+            chat_id, play_controller.get_question()
+          )
+        else:
+          bot.send_message(
+            chat_id, play_controller.get_question()
+          )
 
     bot.polling()
 
