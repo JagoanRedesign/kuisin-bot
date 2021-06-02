@@ -10,7 +10,7 @@ class Main:
   
   # Controllers
   play_controller = PlayController()
-
+  
   def __init__(self):
     super().__init__()
     
@@ -39,12 +39,12 @@ class Main:
         self.question = self.play_controller.get_question()
         
         # Display question
-        self.bot.send_message(
+        msg = self.bot.send_message(
           chat_id, self.question.get_text()
         )
 
         # Get user answer and check it
-        self.bot.register_next_step_handler(message, self.check_user_answer)
+        self.bot.register_next_step_handler(msg, self.check_user_answer)
 
         # Set timer
         t = 20
@@ -65,7 +65,7 @@ class Main:
             chat_id, 'Permainan berakhir. Kamu mendapatkan score ' + str(self.user_score)
           )
           self.play_controller.clear_quest_id_list()
-          
+
           return
 
     self.bot.polling()
@@ -77,7 +77,8 @@ class Main:
     if user_answer.lower() == correct_answer.lower():
       self.user_score += self.question.get_score()
       self.is_correct = True
-      
+    else:
+      self.bot.register_next_step_handler(message, self.check_user_answer)
 
 main = Main()
 main.main()

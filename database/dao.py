@@ -24,7 +24,6 @@ class Dao:
   def get_question(self, id):
     try:
       self.cursor.execute("SELECT * FROM question WHERE id=" + str(id))
-
       result = self.cursor.fetchone()
 
       question = Question(
