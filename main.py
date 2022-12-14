@@ -3,7 +3,7 @@ import time
 from controller.play_controller import PlayController
 
 class Main:
-  bot = telebot.TeleBot('1895994173:AAEOIlOIpYt-8sx5SVu_-cp0smhkVfRO668')
+  bot = telebot.TeleBot('5620851513:AAGsm0rFSLw_ZR_4dsHL3-KYIWaoFnV07-I')
   question = None
   user_score = 0
   is_correct = False
